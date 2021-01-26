@@ -1,0 +1,38 @@
+/* You can add global styles to this file, and also import other style files */
+.centered{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.box{
+    padding: 25px 20px;
+    box-shadow: 2px 2px 8px rgba(14, 13, 13, 0.623);
+    background-color: #716e6e6b;
+    border-radius: 5px;
+    border-bottom: 3px solid #0f9e0f;
+}
+input.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched{
+    border: 2px soli red;
+    background-color: #e68c8c;
+}
+.vaidation_error{
+    color: #de2f2f;
+    font-size: 1.3rem;
+}
+
+.alert-danger{
+    background-color: #dc9b9b;
+    box-shadow: 2px 2px 4px #e83b3ba3;
+}
+.alert-warning {
+    color: #8a6d3b;
+    background-color: #e2b2a1;
+}
+body{
+    margin-bottom: 20px;
+}
+.btn{
+    margin: 0px 2px;
+}

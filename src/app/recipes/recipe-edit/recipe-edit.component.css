@@ -1,0 +1,35 @@
+input.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+input[type="file"] {
+  visibility: hidden;
+}
+.upload_box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column;
+  padding: 6px;
+  border: 5px dashed #e2e2e2;
+}
+.image_preview {
+  height: 200px;
+  border-radius: 5px;
+  margin-bottom: 12px;
+  object-fit: contain;
+}
+
+.box_shadow {
+  box-shadow: 2px 2px 5px #2d2b2b73;
+}
+.ing_item {
+  margin: 20px 5px;
+  padding: 10px 2px;
+  box-shadow: 3px 3px 10px 1px #5cb85c;
+  border-radius: 10px;
+  display: inline-block;
+  width: inherit;
+  width: 97%;
+}

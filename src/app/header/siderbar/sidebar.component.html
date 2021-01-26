@@ -1,0 +1,15 @@
+<div *ngIf="showSidebar" id="sidebar_backdrop" (click)="show()"></div>
+<div id="sidebar" [ngClass]="{open: showSidebar===true}">
+    <ul class="nav nav-sidebar">
+        <li (click)="show()" class="navlink" *ngIf="userIsAuthenticated" routerLinkActive="active"><a
+                routerLink="/recipes">Recipes</a></li>
+        <li (click)="show()" class="navlink" *ngIf="userIsAuthenticated" routerLinkActive="active"><a
+                routerLink="/shopping-list">Shopping List</a></li>
+        <li (click)="show()" class="navlink" *ngIf="!userIsAuthenticated" routerLinkActive="active"><a
+                routerLink="/login">Login</a></li>
+        <li (click)="show()" class="navlink" *ngIf="!userIsAuthenticated" routerLinkActive="active"><a
+                routerLink="/signup">Register</a></li>
+        <li class="navlink" *ngIf="userIsAuthenticated" routerLinkActive="active"><a
+                style="cursor: pointer;" (click)="onLogout()">Logout</a></li>
+    </ul>
+</div>

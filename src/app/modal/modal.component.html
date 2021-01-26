@@ -1,0 +1,6 @@
+<div *ngIf="showModal">
+    <div id="backdrop" (click)="onClose()"></div>
+    <div id="modal" [@modalEffect]="">
+        <ng-content></ng-content>
+    </div>
+</div>

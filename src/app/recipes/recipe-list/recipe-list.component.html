@@ -1,0 +1,15 @@
+<div class="row">
+    <div class="col-xs-12">
+        <button class="btn btn-success" (click)="onNewRecipe()">New Recipe</button>
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-xs-12">
+        <!-- <a class="list-group-item" style="cursor: pointer" *ngFor="let recipe of recipes">
+            {{ recipe.name }} {{ recipe.description }}
+        </a> -->
+        <app-recipe-item *ngFor="let recipeEl of recipes; let i=index" [id]="recipeEl._id" [recipe]="recipeEl">
+        </app-recipe-item>
+    </div>
+</div>

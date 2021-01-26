@@ -1,0 +1,15 @@
+.selection_reipe_box {
+  min-height: 70vh;
+}
+.selection_reipe_content {
+  min-height: inherit;
+  flex-flow: column;
+}
+.selection_reipe_content img {
+  max-width: 55%;
+  margin-bottom: 25px;
+}
+.selection_reipe_content span {
+  font-size: 1.5rem;
+  text-transform: capitalize;
+}

@@ -1,0 +1,72 @@
+<app-modal>
+  <div *ngIf="recipe.ingredients.length > 0;else emptyShoppingList" class="centered modal_content_box">
+    <h3 class="header_modal">This recipe shopping list has been successfully added to your shopping list.</h3>
+    <div>For saving permanently, your shopping list should be saved all anytime</div>
+    <a class="modal_link" routerLink="/shopping-list">To see your updated shopping list click here!</a>
+    <div></div>
+    <button class="btn btn-info" (click)="onCloseModal()">Close</button>
+  </div>
+  <ng-template #emptyShoppingList>
+    <p class="text-center text-danger">
+      Your shopping list is empty!
+    </p>
+    <p class="text-center text-danger">
+      You can simply add shopping list item by edit the recipe
+    </p>
+  </ng-template>
+</app-modal>
+<div class="col-xs-12">
+  <div class="box">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="image_box">
+          <img src="{{ recipe.imagePath }}" class="img-responsive">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <h1 class="text-center"> {{ recipe.name }} </h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="btn-group" appDropdown>
+          <button type="button" class="btn btn-primary dropdown-toggle">
+            Manage Recipe <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu">
+            <li><a (click)="onAddToShoppingList()" style="cursor: pointer;">To Shopping List</a></li>
+            <li><a (click)="onEditRecipe()" style="cursor: pointer;">Edit Recipe</a></li>
+            <li><a (click)="onDeleteRecipe()" style="cursor: pointer;">Delete Recipe</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="rec_dec_box">
+          <div>Recipe Description: </div>
+          {{ recipe.description }}
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="list-group">
+          <ul *ngIf="recipe.ingredients.length > 0;else noIngredientExist">
+            <li class="list-group-item" *ngFor="let ingr of recipe.ingredients">
+              {{ ingr.name }} - {{ ingr.amount }}
+            </li>
+          </ul>
+          <ng-template #noIngredientExist>
+            <div class="empty_ingredient">
+              <div>There is no shopping list</div>
+              <div><b>You can simply add shopping list by edit the recipe</b></div>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

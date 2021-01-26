@@ -1,0 +1,32 @@
+<app-modal>
+    <div class="text-center">
+        <div class="q_modal">Would you like to leave this page without saving all shopping list changes?</div>
+        <div class="modal_content_r">Your shopping list has been changed and unsaved so far!</div>
+        <p class="modal_content_r">if you want to ignore these changes,click <b class="highlight">Yes</b> to leave this
+            page!</p>
+        <p class="modal_content_r">
+            If you want save these chnages permanently, click <b class="highlight">No</b> to stay this page
+            and then click <b class="highlight">Save All</b> to save all changes permanently
+        </p>
+        <button class="btn btn-warning" (click)="ConfirmModalUI(true)">Yes, leave the page</button>
+        <button class="btn btn-primary" (click)="ConfirmModalUI(false)">No, stay the page</button>
+    </div>
+</app-modal>
+<div class="row">
+    <div class="col-xs-12">
+        <button [disabled]="!hasChanged" (click)="onSaveAllShoppingList()" class="btn btn-block btn-success">SAVE
+            ALL</button>
+        <hr>
+        <app-shopping-edit (dataChangedEvent)="dataHasChanged()"></app-shopping-edit>
+        <hr>
+        <h3 class="text-center">Your Shopping List</h3>
+        <ul class="list-group">
+            <a [@listEffect]="" class="list-group-item" style="cursor: pointer"
+                *ngFor="let ingredient of ingredients;let i = index" (click)="onEditItem(i)">
+                {{ ingredient.name }} ({{ ingredient.amount }})
+            </a>
+        </ul>
+    </div>
+    <button [disabled]="!hasChanged" (click)="onSaveAllShoppingList()" class="btn btn-block btn-success">SAVE
+        ALL</button>
+</div>
