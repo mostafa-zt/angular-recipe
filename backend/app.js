@@ -22,21 +22,22 @@ app.use(bodyParser.urlencoded({ 'extended': 'false' }));
 app.use("/images", express.static(path.join(__dirname, "images")));
 //Put your angular frontend folder here
 app.use(express.static(path.join(__dirname, '../frontend', 'angular-recipe')));
-// app.use('/', express.static(path.join(__dirname, 'dist')));
+app.use('/', express.static(path.join(__dirname, '../frontend', 'angular-recipe')));
 
 app.use('/api', shoppingListRouter)
 app.use('/api', userRouter);
 app.use('/api', recipeRouter);
+app.get((req, res, next) => {
+    res.sendFile(path.join(__dirname, '../frontend', 'angular-recipe', 'index.html'));
+})
 
 // app.use('/*',(req, res, next) => {
 //     res.sendFile(path.join(__dirname, '../', 'dist', 'my-first-app', 'index.html'))
 // });
 
-if (process.env.NODE_ENV === 'production') {
-    app.get('/*', (req, res) => {
-        res.sendFile(path.join(__dirname, '../frontend', 'angular-recipe', 'index.html'));
-    })
-}
+// if (process.env.NODE_ENV === 'production') {
+
+//}
 
 
 module.exports = app;
