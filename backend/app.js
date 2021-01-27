@@ -9,18 +9,13 @@ const recipeRouter = require('./routes/recipe');
 
 const app = express();
 
-mongoose.connect('mongodb+srv://mostafa:LUjiZggnXA6agN2f@cluster0.wvo17.mongodb.net/recipe?retryWrites=true&w=majority')
-    .then(result => {
-        console.log('Database Connected...');
-    })
-    .catch(err => {
-        console.log('Connecting Faild...')
-    })
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ 'extended': 'false' }));
 app.use("/images", express.static(path.join(__dirname, "images")));
 //Put your angular frontend folder here
+
 app.use(express.static(path.join(__dirname, '../frontend', 'angular-recipe')));
 app.use('/', express.static(path.join(__dirname, '../frontend', 'angular-recipe')));
 
@@ -28,7 +23,8 @@ app.use('/api', shoppingListRouter)
 app.use('/api', userRouter);
 app.use('/api', recipeRouter);
 app.get((req, res, next) => {
-    res.sendFile(path.join(__dirname, '../frontend', 'angular-recipe', 'index.html'));
+    res.sendFile(path.join(__dirname, 'index.html'));
+    // res.sendFile(path.join(__dirname, '../frontend', 'angular-recipe', 'index.html'));
 })
 
 // app.use('/*',(req, res, next) => {
@@ -38,6 +34,14 @@ app.get((req, res, next) => {
 // if (process.env.NODE_ENV === 'production') {
 
 //}
+mongoose.connect('mongodb+srv://mostafa:LUjiZggnXA6agN2f@cluster0.wvo17.mongodb.net/recipe?retryWrites=true&w=majority')
+    .then(result => {
+        console.log('Database Connected...');
+        app.listen(process.env.PORT || 3000);
+    })
+    .catch(err => {
+        console.log('Connecting Faild...')
+    })
 
 
-module.exports = app;
+// module.exports = app;
