@@ -37,12 +37,6 @@ export class RecipeEditComponent implements OnInit {
   alert: Alert = null
 
   ngOnInit(): void {
-    // Retrieve Id params
-    // this.route.params.subscribe((params: Params) => {
-    //   this.id = params['id'];
-    //   this.editMode = params['id'] != null;
-    //   this.initForm();
-    // })
     this.route.data.subscribe(res => {
       if (res.recipeResolver) {
         const recipe = res.recipeResolver.data;
@@ -74,10 +68,7 @@ export class RecipeEditComponent implements OnInit {
     const image = this.recipeForm.value['image'];
     const description = this.recipeForm.value['description'];
     const ingredients = this.recipeForm.value['ingredients'];
-    // const newRecipe: Recipe = {
-    //   _id: this.id, description: description, ingredients: ingredients, name: name, imagePath: ''
-    // };
-    let formData: FormData | Recipe;
+    let formData: FormData;
     formData = new FormData();
     formData.append("name", name);
     formData.append("description", description);
@@ -87,9 +78,6 @@ export class RecipeEditComponent implements OnInit {
       if (typeof (image) === 'object') {
         formData.append("image", image, name);
       } else {
-        // formData = {
-        //   _id: this.id, description: description, ingredients: ingredients, name: name, imagePath: image
-        // };
         formData.append("imagePath", image);
       }
       this.recipeService.updateRecipe(formData).subscribe(response => {
@@ -98,7 +86,6 @@ export class RecipeEditComponent implements OnInit {
           this.recipeService.replaceRecipe(response.data._id, response.data);
           this.recipeService.recipesChanged.next(this.recipeService.getRecipes());
           this.alert = new Alert(AlertType.Success, [{ msg: response.message as string }]);
-          // this.onCancel();
         }
         else {
           this.alert = new Alert(AlertType.Warning);
@@ -126,7 +113,6 @@ export class RecipeEditComponent implements OnInit {
           this.recipeService.setRecipe(response.data);
           this.recipeService.recipesChanged.next(this.recipeService.getRecipes());
           this.alert = new Alert(AlertType.Success, [{ msg: response.message as string }]);
-          // this.onCancel();
         } else {
           this.alert = new Alert(AlertType.Warning);
           if (response.message instanceof Array) {
