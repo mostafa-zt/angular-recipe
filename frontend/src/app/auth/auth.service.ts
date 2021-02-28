@@ -1,7 +1,9 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
+import { env } from "process";
 import { Subject } from "rxjs";
+import { environment } from "../../environments/environment";
 import { ResponseData } from "../shared/responseData.model";
 import { AuthModel, loginModel } from "./auth.model";
 
@@ -16,7 +18,7 @@ export class AuthService {
     private timeOut: any
 
     createUser(authModel: AuthModel) {
-        return this.http.post<ResponseData>("/api/signup", authModel);
+        return this.http.post<ResponseData>(`${environment.apiUrl}/signup`, authModel);
     }
 
     setToken(token: string) {
@@ -36,7 +38,7 @@ export class AuthService {
     }
 
     login(loginModel: loginModel) {
-        return this.http.post<{ token: string, success: boolean, messages: [{ msg: string, param: string }], expiresIn: number }>("/api/login", loginModel);
+        return this.http.post<{ token: string, success: boolean, messages: [{ msg: string, param: string }], expiresIn: number }>(`${environment.apiUrl}/login`, loginModel);
     }
 
     autoAuthUser() {

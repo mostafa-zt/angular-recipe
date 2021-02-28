@@ -45,7 +45,7 @@ router.post('/login', loginValidator(), (req, res, next) => {
     User.findOne({ email: email }, (err, user) => {
         if (err) return res.status(500).json({ success: false, message: "An error occurred!" });
         if (!user) {
-            errors.push({ msg: "There is not any account with this email!", param: '' })
+            errors.push({ msg: "Username or password is wrong!", param: '' })
             return res.json({ success: false, messages: errors });
         }
 
@@ -55,7 +55,7 @@ router.post('/login', loginValidator(), (req, res, next) => {
                 const token = jwt.sign({ email: user.email, userId: user._id }, "SUPER_SECRET_SHOULD_BE_LONGER", { expiresIn: "1h" });
                 return res.status(200).json({ token: token, success: true, expiresIn: 3600 }); // ==> 3600 seconds = 1 hour
             }
-            errors.push({ msg: "There is not any account with this information!", param: '' });
+            errors.push({ msg: "Username or password is wrong!", param: '' });
             return res.json({ success: false, messages: errors });
         })
     })

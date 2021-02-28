@@ -24,19 +24,18 @@ app.use("/images", express.static(path.join(__dirname, "images")));
 app.use(express.static(path.join(__dirname, 'angular')));
 // app.use('/', express.static(path.join(__dirname, '../frontend', 'angular-recipe')));
 
+// app.use(function (req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+//     res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
+//     next();
+// });
+
 app.use('/api', shoppingListRouter)
 app.use('/api', userRouter);
 app.use('/api', recipeRouter);
-app.use((req, res, next) => {
-    // res.sendFile(path.join(__dirname, 'index.html'));
+app.use('/*', (req, res, next) => {
     res.sendFile(path.join(__dirname, 'angular', 'index.html'));
 })
-
-// app.use('/*',(req, res, next) => {
-//     res.sendFile(path.join(__dirname, '../', 'dist', 'my-first-app', 'index.html'))
-// });
-
-// if (process.env.NODE_ENV === 'production') {
-//}
 
 module.exports = app;

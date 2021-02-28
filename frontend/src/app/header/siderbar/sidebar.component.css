@@ -45,3 +45,8 @@
   margin: 20px 0px;
   letter-spacing: 2px;
 }
+
+.navlink.active a{
+  color: #555;
+  background-color: #e7e7e7;
+}

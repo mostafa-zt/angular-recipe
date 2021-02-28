@@ -27,7 +27,6 @@ export class SignupComponent implements OnInit {
     if (form.invalid) return;
     const authData: AuthModel = { email: form.value.email, password: form.value.password, confirmPassword: form.value.confirmPassword }
     this.authService.createUser(authData).subscribe(response => {
-      console.log(response);
       if (response.success) {
         this.alert = new Alert(AlertType.Success, [{ msg: response.message as string }]);
         this.alert.messages.push({ prop: "", msg: "You will be redirecting to login page after 3 seconds!" })

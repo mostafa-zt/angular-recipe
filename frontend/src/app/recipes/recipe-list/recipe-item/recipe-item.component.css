@@ -17,7 +17,8 @@
 }
 
 .image_box .img {
-  max-height: 75px;
+  height: 75px;
+  width: 81px;
   object-fit: cover;
 }
 .recipe_name {

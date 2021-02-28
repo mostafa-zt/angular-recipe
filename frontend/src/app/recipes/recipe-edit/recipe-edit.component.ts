@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { RecipeService } from '../recipe.service';
-import { Ingredient } from '../../shared/ingredient.model';
 import { Recipe } from '../recipe.model';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { mimeType } from '../../shared/mime-type.validator';
@@ -81,7 +80,6 @@ export class RecipeEditComponent implements OnInit {
         formData.append("imagePath", image);
       }
       this.recipeService.updateRecipe(formData).subscribe(response => {
-        debugger;
         if (response.success) {
           this.recipeService.replaceRecipe(response.data._id, response.data);
           this.recipeService.recipesChanged.next(this.recipeService.getRecipes());
@@ -108,7 +106,6 @@ export class RecipeEditComponent implements OnInit {
       formData.append("_id", this.id);
       formData.append("image", image, name);
       this.recipeService.addRecipe(formData).subscribe(response => {
-        debugger;
         if (response.success) {
           this.recipeService.setRecipe(response.data);
           this.recipeService.recipesChanged.next(this.recipeService.getRecipes());

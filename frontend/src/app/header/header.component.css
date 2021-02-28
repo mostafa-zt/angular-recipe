@@ -1,7 +1,7 @@
 .sidebarBtn {
   width: 35px;
   height: 5px;
-  background-color: rgb(214, 18, 18);
+  background-color:  #046120;
   margin: 6px 0;
   position: relative;
   transition: all 0.4s;
@@ -14,7 +14,7 @@
   transition: all 0.3s;
 }
 #sidebar_btn:hover .sidebarBtn {
-  background-color: brown;
+  background-color: #55db7d;
 }
 
 @media (max-width: 767px) {

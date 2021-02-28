@@ -2,3 +2,4 @@ node_modules/
 angular-recipe.zip
 .vscode/
 images/
+/backend/angular/

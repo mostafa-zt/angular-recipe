@@ -1,7 +1,12 @@
-.image_box {
+
+.image_box_detail{
   border: 4px solid #d2ccc2;
   border-radius: 5px;
   box-shadow: 2px 2px 4px #0e0e0e;
+  width: 60%;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 .rec_dec_box {
   padding: 5px 10px;
@@ -38,4 +43,10 @@ ul {
 
 .modal_content_box {
   flex-flow: column;
+}
+
+.carousel-inner>.item>a>img, .carousel-inner>.item>img, .img-responsive, .thumbnail a>img, .thumbnail>img{
+  max-height: 340px;
+  object-fit: cover;
+  width: 100%;
 }

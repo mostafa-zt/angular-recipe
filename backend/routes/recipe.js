@@ -98,7 +98,6 @@ router.delete('/delete-recipe', checkAuthMiddleWare, (req, res, next) => {
 })
 
 router.get('/get-recipes', checkAuthMiddleWare, (req, res, next) => {
-    console.log(req.userData.userId);
     Recipe.find({ creator: req.userData.userId }, (err, docs) => {
         res.json({
             recipes: docs

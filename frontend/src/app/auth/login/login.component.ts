@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormControl, NgForm, NgModel } from '@angular/forms';
+import { NgForm, NgModel } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Alert, AlertType } from '../../alert/alert.model';
@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(private authService: AuthService, private router: Router, private titleService: Title) {
     this.titleService.setTitle("Recipe | Login");
-   }
+  }
   ngOnDestroy(): void {
   }
 
