@@ -11,11 +11,11 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
     trigger('listEffect', [
       state('in', style({ opacity: 1, transform: 'translateX(0)' })),
       transition('void => *', [
-        style({ opacity: 0, transform: 'translateX(-100px)' }),
-        animate(300)
+        style({ opacity: 1, transform: 'translateX(-100px)' }),
+        animate(500)
       ]),
       transition('* => void', [
-        animate(300, style({
+        animate(500, style({
           transform: 'translateX(100px)',
           opacity: 0
         }))
