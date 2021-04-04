@@ -3,6 +3,7 @@ const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
+const config = require('../config/config').get(process.env.NODE_ENV);
 const { signupValidator, loginValidator } = require('../validation/expressValidator');
 const User = require('../model/user');
 
@@ -52,7 +53,7 @@ router.post('/login', loginValidator(), (req, res, next) => {
         bcrypt.compare(password, user.password, (err, isMatch) => {
             if (err) res.status(500).json({ success: false, message: "An error occurred while comparing the passowrd" });
             if (isMatch) {
-                const token = jwt.sign({ email: user.email, userId: user._id }, "SUPER_SECRET_SHOULD_BE_LONGER", { expiresIn: "1h" });
+                const token = jwt.sign({ email: user.email, userId: user._id }, config.SECRET, { expiresIn: "1h" });
                 return res.status(200).json({ token: token, success: true, expiresIn: 3600 }); // ==> 3600 seconds = 1 hour
             }
             errors.push({ msg: "Username or password is wrong!", param: '' });

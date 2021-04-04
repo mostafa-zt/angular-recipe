@@ -1,6 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import { environment } from '../../environments/environment';
 import { Ingredient } from '../shared/ingredient.model';
@@ -66,7 +66,7 @@ export class RecipeService {
         return this.http.get<ResponseData>(`${environment.apiUrl}/get-recipe`, { params: new HttpParams().set('id', id) });
     }
 
-    addRecipe(recipe: FormData) {
+    addRecipe(recipe: any) {
         const request = this.http.post<ResponseData>(`${environment.apiUrl}/create-recipe`, recipe);
         return request;
     }

@@ -13,7 +13,7 @@ const recipeSchema = new Schema({
         required: true,
         type: String
     },
-    serverRelativePath: {
+    publicId: {
         type: String
     },
     description: {

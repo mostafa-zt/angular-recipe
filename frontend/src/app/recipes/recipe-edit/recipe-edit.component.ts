@@ -57,6 +57,9 @@ export class RecipeEditComponent implements OnInit {
       const reader = new FileReader();
       reader.onload = () => {
         this.imagePreview = reader.result as string;
+        this.recipeForm.patchValue({
+          file: reader.result
+        });
       }
       reader.readAsDataURL(file);
     }
@@ -68,12 +71,12 @@ export class RecipeEditComponent implements OnInit {
     const description = this.recipeForm.value['description'];
     const ingredients = this.recipeForm.value['ingredients'];
     let formData: FormData;
-    formData = new FormData();
-    formData.append("name", name);
-    formData.append("description", description);
-    formData.append("ingredients", JSON.stringify(ingredients));
-    formData.append("_id", this.id);
     if (this.editMode) {
+      formData = new FormData();
+      formData.append("name", name);
+      formData.append("description", description);
+      formData.append("ingredients", JSON.stringify(ingredients));
+      formData.append("_id", this.id);
       if (typeof (image) === 'object') {
         formData.append("image", image, name);
       } else {

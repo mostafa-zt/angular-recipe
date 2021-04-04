@@ -1,16 +1,19 @@
 const express = require('express');
-const multer = require('multer');
 const { validationResult } = require('express-validator');
+const multer = require('multer')
 
-const { removeFile } = require('../util/fileUtility');
-const { storage } = require('../middleware/multerDiskStorage');
+// const { removeFile } = require('../util/fileUtility');
+// const { storage } = require('../middleware/multerDiskStorage');
 const Recipe = require('../model/recipe');
 const checkAuthMiddleWare = require('../middleware/check-auth');
 const { recipeValidator } = require('../validation/expressValidator');
+const cloudinaryUtility = require('../util/cloudinaryUtility');
 
 const router = express.Router();
 
-router.post('/create-recipe', checkAuthMiddleWare, multer({ storage: storage }).single('image'), recipeValidator(), (req, res, next) => {
+const upload = multer()
+
+router.post('/create-recipe', checkAuthMiddleWare, upload.single('image'), recipeValidator(), (req, res, next) => {
     const errors = validationResult(req).array().map(err => err.msg) || [];
     if (!req.file)
         errors.push("There is no any image to upload!");
@@ -18,45 +21,51 @@ router.post('/create-recipe', checkAuthMiddleWare, multer({ storage: storage }).
         // error status 422
         return res.json({ success: false, message: errors });
     }
-    const url = req.protocol + '://' + req.get('host'); // req.protocol ==> http or https
-    const recipe = new Recipe({
-        name: req.body.name,
-        imagePath: url + '/images/' + req.file.filename,
-        description: req.body.description,
-        ingredients: JSON.parse(req.body.ingredients),
-        serverRelativePath: 'backend/images/' + req.file.filename,
-        creator: req.userData.userId
-    });
-    recipe.save((err, doc) => {
-        if (err) res.status(500).json({ success: false, message: 'Error!' });
-        res.status(201).json({
-            success: true,
-            message: "Recipe has been successfully saved.",
-            data: doc
+    // const url = req.protocol + '://' + req.get('host'); // req.protocol ==> http or https
+    cloudinaryUtility.streamUpload(req.file).then(result => {
+        const recipe = new Recipe({
+            name: req.body.name,
+            // imagePath: url + '/images/' + req.file.filename,
+            imagePath: result.url,
+            description: req.body.description,
+            ingredients: JSON.parse(req.body.ingredients),
+            publicId: result.public_id,
+            creator: req.userData.userId
         });
-    });
+        recipe.save((err, doc) => {
+            if (err) res.status(500).json({ success: false, message: 'Error!' });
+            res.status(201).json({
+                success: true,
+                message: "Recipe has been successfully saved.",
+                data: doc
+            });
+        });
+    }).catch(err => {
+        console.log(err);
+        return res.status(500).json({ success: false, message: err });
+    })
 });
 
-router.put('/update-recipe', checkAuthMiddleWare, multer({ storage: storage }).single('image'), recipeValidator(), async (req, res, next) => {
+router.put('/update-recipe', checkAuthMiddleWare, upload.single('image'), recipeValidator(), async (req, res, next) => {
     const errors = validationResult(req).array().map(err => err.msg) || [];
     if (errors.length > 0) {
         // error status 422
         return res.json({ success: false, message: errors });
     }
-    let imagePath = req.body.imagePath;
-    let serverRelativePath = null;
     let recipe;
     if (req.file) {
-        const url = req.protocol + '://' + req.get('host'); // req.protocol ==> http or https
-        imagePath = url + '/images/' + req.file.filename;
-        serverRelativePath = 'backend/images/' + req.file.filename;
+        // const url = req.protocol + '://' + req.get('host'); // req.protocol ==> http or https        
+        // imagePath = url + '/images/' + req.file.filename;
+        // serverRelativePath = 'backend/images/' + req.file.filename;
+        const uploadResult = await cloudinaryUtility.streamUpload(req.file);
         recipe = new Recipe({
             _id: req.body._id,
             name: req.body.name,
-            imagePath: imagePath,
-            serverRelativePath: serverRelativePath,
+            imagePath: uploadResult.url,
             description: req.body.description,
-            ingredients: JSON.parse(req.body.ingredients)
+            ingredients: JSON.parse(req.body.ingredients),
+            publicId: uploadResult.public_id,
+            creator: req.userData.userId
         });
     }
     else {
@@ -74,7 +83,7 @@ router.put('/update-recipe', checkAuthMiddleWare, multer({ storage: storage }).s
         Recipe.findByIdAndUpdate(req.body._id, recipe, { new: true }, (err, doc) => {
             if (err) res.status(500).json({ success: false, message: 'Error!' });
             if (req.file)
-                removeFile(oldRecipe.serverRelativePath);
+                cloudinaryUtility.removeFile(oldRecipe.publicId);
             return res.status(200).json({
                 success: true,
                 message: "Recipe has been successfully updated.",
@@ -88,7 +97,7 @@ router.delete('/delete-recipe', checkAuthMiddleWare, (req, res, next) => {
     const id = req.query.id;
     Recipe.findByIdAndRemove(id, (err, doc) => {
         if (err) return res.json({ success: false, message: 'Error!' });
-        removeFile(doc.serverRelativePath);
+        cloudinaryUtility.removeFile(doc.publicId);
         return res.status(200).json({
             success: true,
             message: 'This recipe has been successfully removed.',
