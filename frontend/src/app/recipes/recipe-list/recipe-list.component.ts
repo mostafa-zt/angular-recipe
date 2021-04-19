@@ -33,13 +33,17 @@ export class RecipeListComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   // @Output() recipeSelected = new EventEmitter<Recipe>();
 
+  pageIsLoading: boolean = false;
+
   ngOnInit() {
     // this.recipes = this.recipeService.getRecipes();
+    this.pageIsLoading = true;
     this.recipeService.getRecipesFromServer(this.batch).subscribe(response => {
       const recipesLoaded = (response as any).recipes as Array<Recipe>
       this.recipes = recipesLoaded;
       this.recipeService.setRecipes(this.recipes);
       this.lastEntity = recipesLoaded[recipesLoaded.length - 1];
+      this.pageIsLoading = false;
     })
     this.subscription = this.recipeService.recipesChanged.subscribe((recipes: Array<Recipe>) => {
       this.recipes = recipes;
@@ -48,6 +52,7 @@ export class RecipeListComponent implements OnInit, OnDestroy {
 
   loadOnScroll() {
     if (this.finished) return;
+    if (this.pageIsLoading) return;
     this.spinner.show();
     const skip = this.recipes && this.recipes.length;
     this.recipeService.getRecipesFromServer(this.batch, skip).subscribe(result => {
@@ -62,7 +67,6 @@ export class RecipeListComponent implements OnInit, OnDestroy {
         this.recipeService.setRecipes(this.recipes);
       } else
         this.finished = true;
-
     })
   }
 

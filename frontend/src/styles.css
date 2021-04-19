@@ -4135,7 +4135,8 @@ blockquote {
   border-radius: 5px;
   background-image: url("https://d3e54v103j8qbb.cloudfront.net/img/example-bg.png");
   background-position: 50% 50%;
-  background-size: cover;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .page-product-headin {
@@ -4932,12 +4933,12 @@ blockquote {
     width: 90%;
   }
 
-  .form-main{
+  .form-main {
     flex-grow: 1;
     flex-basis: 60%;
     flex-shrink: 0;
   }
-  .form-side{
+  .form-side {
     flex-grow: 1;
     flex-basis: 40%;
     flex-shrink: 0;
