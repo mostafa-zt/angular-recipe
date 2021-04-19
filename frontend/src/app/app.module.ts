@@ -1,7 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { NgScrollbarModule } from 'ngx-scrollbar';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -27,6 +30,13 @@ import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { AlertComponent } from './alert/alert.component';
+import { FooterComponent } from './footer/footer.component';
+import { HomeComponent } from './home/home.component';
+import { AllRecipesComponent } from './all-recipes/all-recipes.component';
+import { RecipeViewComponent } from './recipe-view/recipe-view.component';
+import { SpinnerComponent } from './spinner/spinner.component';
+import { SpinnerInterceptor } from './spinner/spinner.interceptor';
+
 
 @NgModule({
   declarations: [
@@ -45,7 +55,12 @@ import { AlertComponent } from './alert/alert.component';
     AppSideBarComponent,
     LoginComponent,
     SignupComponent,
-    AlertComponent
+    AlertComponent,
+    FooterComponent,
+    HomeComponent,
+    AllRecipesComponent,
+    RecipeViewComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +68,10 @@ import { AlertComponent } from './alert/alert.component';
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    InfiniteScrollModule,
+    NgScrollbarModule,
+    NgxSpinnerModule
   ],
   providers: [
     ShoppingListService,
@@ -61,7 +79,9 @@ import { AlertComponent } from './alert/alert.component';
     ModalService,
     RecipeGetResolverService,
     CanDeactivateGuard,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

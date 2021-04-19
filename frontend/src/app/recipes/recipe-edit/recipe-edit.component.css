@@ -27,9 +27,16 @@ input[type="file"] {
 .ing_item {
   margin: 10px 5px;
   padding: 10px 2px;
-  box-shadow: 3px 3px 10px 1px #5cb85c;
   border-radius: 10px;
   display: inline-block;
   width: inherit;
   width: 97%;
+}
+
+.upload_btn {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
 }

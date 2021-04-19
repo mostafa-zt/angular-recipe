@@ -1,0 +1,54 @@
+<div class="page-title-section">
+    <div class="container">
+        <h1 class="page-title">Recipe List</h1>
+    </div>
+</div>
+<div class="content-section">
+    <div class="container">
+        <div class="shop-page-wrapper">
+            <div class="shop-list">
+                <div class="products-list-wrapper w-dyn-list">
+                    <div role="list" class="products-list w-dyn-items">
+                        <div [@fadeIn]="" *ngFor="let recipe of recipes" role="listitem" class="w-dyn-item">
+                            <div class="shop-item-wrapper">
+                                <a routerLink="/recipe-detail/{{recipe._id}}"
+                                    class="shop-item-link-wrapper w-inline-block">
+                                    <div style="background-image:url({{recipe.imagePath}})"
+                                        class="shop-image tumbler-1 narrow-list">
+                                        <div class="description">
+                                            <p>
+                                                {{recipe.description}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="shop-details-wrapper">
+                                        <div class="shop-details-left">
+                                            <div class="shop-item-name">{{recipe.name}}</div>
+                                            <div class="price-wrapper">
+                                                <div
+                                                    class="shop-item-price compare w-condition-invisible w-dyn-bind-empty">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                                <div class="shop-button-wrapper">
+                                    <a routerLink="/recipe-detail/{{recipe._id}}" class="btn w-button">Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="position: relative; display: flex;align-items: center;justify-content: center;"
+                    class="search-results" infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollUpDistance]="1.5"
+                    [infiniteScrollThrottle]="500" (scrolled)="loadOnScroll()"> 
+                    <ngx-spinner size="medium" color="#880707" type="fire" [fullScreen]="false"
+                        style="position: absolute; bottom: -5px;">
+                    </ngx-spinner>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

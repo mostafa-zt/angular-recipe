@@ -1,0 +1,9 @@
+.scroll{
+    height: 700px;
+    scroll-behavior: auto;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+/* width  */

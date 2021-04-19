@@ -1,4 +1,4 @@
-<div class="col-xs-12">
+<div class="recipe-edit-box">
     <div class="box">
         <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
             <app-alert *ngIf="alert" (close)="onCloseAlertMessage()" [alert]="alert"></app-alert>
@@ -16,7 +16,7 @@
                     file is
                     forbbiden!</span>
                 <!-- <input type="text" class="form-control" formControlName="imagePath" id="ImagePath" placeholder="Image Url"> -->
-                <button type="button" class="btn btn-success" (click)="filePicker.click()">
+                <button type="button" class="btn btn-success upload_btn" (click)="filePicker.click()">
                     <img src="../../../assets/img/image-upload.png" width="30" />
                     Upload Image
                 </button>
@@ -24,31 +24,29 @@
             </div>
             <div class="form-group">
                 <label for="Description">Description</label>
-                <textarea class="form-control" id="Description" formControlName="description" rows="3"></textarea>
+                <textarea class="form-control" id="Description" formControlName="description" col="5"
+                    rows="3"></textarea>
             </div>
-            <div class="row">
-                <div class="col col-md-12 col-lg-12 col-sm-12 col-xs-12" formArrayName="ingredients">
-                    <button type="button" style="margin-bottom: 9px;" (click)="addIngredient()"
-                        class="btn btn-xs btn-success">Add Ingredient</button>
-                    <div [@listEffect]="" class="row" *ngFor="let ctrl of getIngredientControls();let i = index"
-                        [formGroupName]="i">
-                        <div class="ing_item">
-                            <div class="col col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" formControlName="name" id="ingredientName"
-                                        placeholder="Ingredient Name">
-                                </div>
+            <div formArrayName="ingredients">
+                <button type="button" style="margin-bottom: 9px;" (click)="addIngredient()"
+                    class="btn btn-xs btn-success">Add Ingredient</button>
+                <div [@listEffect]="" class="row" *ngFor="let ctrl of getIngredientControls();let i = index"
+                    [formGroupName]="i">
+                    <div class="ing_item">
+                        <div class="col col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <input type="text" class="form-control" formControlName="name" id="ingredientName"
+                                    placeholder="Ingredient Name">
                             </div>
-                            <div class="col col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" formControlName="amount"
-                                        id="IngredientAmount" placeholder="Ingredient Amount">
-                                </div>
+                        </div>
+                        <div class="col col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <input type="text" class="form-control" formControlName="amount" id="IngredientAmount"
+                                    placeholder="Ingredient Amount">
                             </div>
-                            <div class="col col-lg-2 col-md-2 col-sm-12 col-xs-12">
-                                <button type="button" (click)="onDeleteIngredient(i)"
-                                    class="btn btn-danger">Remove</button>
-                            </div>
+                        </div>
+                        <div class="col col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                            <button type="button" (click)="onDeleteIngredient(i)" class="btn btn-danger">Remove</button>
                         </div>
                     </div>
                 </div>

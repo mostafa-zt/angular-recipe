@@ -15,7 +15,7 @@ import { AuthService } from '../auth.service';
 export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(private authService: AuthService, private router: Router, private titleService: Title) {
-    this.titleService.setTitle("Recipe | Login");
+    // this.titleService.setTitle("Recipe | Login");
   }
   ngOnDestroy(): void {
   }

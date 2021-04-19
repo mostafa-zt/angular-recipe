@@ -1,5 +1,5 @@
-<div @effect class="alert " [ngClass]="alertType()">
-    <button class="close" (click)="onClose()"></button>
+<div @effect class="alert-wrapper " [ngClass]="alertType()">
+    <!-- <button class="close" (click)="onClose()"></button> -->
     <ul>
         <li *ngFor="let item of alert.messages">{{ item.msg }}</li>
     </ul>

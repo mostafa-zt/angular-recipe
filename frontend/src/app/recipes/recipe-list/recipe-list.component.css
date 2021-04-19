@@ -1,0 +1,11 @@
+.scroll {
+  height: 449px;
+  scroll-behavior: auto;
+  overflow-y: scroll;
+}
+
+.ng-scroll-content {
+  display: block !important;
+  min-width: 100%;
+  position: relative !important;
+}

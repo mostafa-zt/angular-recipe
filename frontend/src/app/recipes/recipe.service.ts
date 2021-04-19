@@ -17,24 +17,7 @@ export class RecipeService {
     recipeSelected = new EventEmitter<Recipe>();
     recipesChanged = new Subject<Array<Recipe>>();
 
-    private recipes: Recipe[] = [
-        new Recipe("Recipe 1",
-            "This is recipe one",
-            "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg?quality=90&resize=960,872",
-            [
-                new Ingredient("Tomato", 5),
-                new Ingredient("Potato", 1),
-                new Ingredient("Garlic", 3),
-                new Ingredient("Pasta Tomato", 2),
-            ], null),
-        new Recipe("Recipe 2", "This is recipe two", "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg?quality=90&resize=960,872",
-            [
-                new Ingredient("Tomato", 5),
-                new Ingredient("Rice", 1),
-                new Ingredient("Apple", 3),
-                new Ingredient("Pasta Tomato", 2),
-            ])
-    ];
+    private recipes: Recipe[] = [];
 
     getRecipes() {
         return this.recipes.slice();
@@ -64,6 +47,10 @@ export class RecipeService {
 
     getRecipeFromServer(id: string) {
         return this.http.get<ResponseData>(`${environment.apiUrl}/get-recipe`, { params: new HttpParams().set('id', id) });
+    }
+
+    getRecipeOne(id: string) {
+        return this.http.get<ResponseData>(`${environment.apiUrl}/recipe`, { params: new HttpParams().set('id', id) });
     }
 
     addRecipe(recipe: any) {
@@ -98,8 +85,18 @@ export class RecipeService {
         return this.http.post(`${environment.apiUrl}/recipe`, recipes);
     }
 
-    getRecipesFromServer() {
-        const request = this.http.get(`${environment.apiUrl}/get-recipes`);
+    getRecipesFromServer(count: number, skip?: number) {
+        const request = this.http.get(`${environment.apiUrl}/get-recipes?count=${count}&skip=${skip}`);
+        return request;
+    }
+
+    getNewRecipes() {
+        const request = this.http.get<ResponseData>(environment.apiUrl + '/new-recipes');
+        return request;
+    }
+
+    getAllRecipes(count: number, skip?: number) {
+        const request = this.http.get(environment.apiUrl + `/all-recipes?count=${count}&skip=${skip}`);
         return request;
     }
 }

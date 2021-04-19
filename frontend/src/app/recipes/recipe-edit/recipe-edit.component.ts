@@ -85,7 +85,7 @@ export class RecipeEditComponent implements OnInit {
       this.recipeService.updateRecipe(formData).subscribe(response => {
         if (response.success) {
           this.recipeService.replaceRecipe(response.data._id, response.data);
-          this.recipeService.recipesChanged.next(this.recipeService.getRecipes());
+          this.recipeService.recipesChanged.next([...this.recipeService.getRecipes(), ...response.data ]);
           this.alert = new Alert(AlertType.Success, [{ msg: response.message as string }]);
         }
         else {

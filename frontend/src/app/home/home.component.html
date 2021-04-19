@@ -1,0 +1,95 @@
+<div class="hero-section">
+    <div class="container">
+        <div class="hero-wrapper">
+            <h1 class="hero-heading"><br />Recipe</h1>
+            <p class="hero-paragraph">
+                Find and share everyday cooking inspiration on Allrecipes. Discover recipes, cooks, videos,
+                and how-tos based on the food you love and the friends you follow.
+            </p>
+            <div class="hero-button-wrapper">
+                <a routerLink="all-recipes" class="btn light outline w-button">Explore All
+                    Recipes</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="products-section">
+    <div class="container">
+        <div class="shop-top-wrapper">
+            <div class="support-top-left">
+                <h2 class="support-top-heading">New Recipes</h2>
+            </div>
+            <div class="support-top-right"></div>
+        </div>
+        <div class="products-list-wrapper w-dyn-list">
+            <div role="list" class="products-list w-dyn-items">
+                <div *ngFor="let recipe of newRecipes" role="listitem" class="w-dyn-item">
+                    <div class="shop-item-wrapper">
+                        <a routerLink="/recipe-detail/{{recipe._id}}" class="shop-item-link-wrapper w-inline-block">
+                            <div style="background-image: url('{{recipe.imagePath}}');" class="shop-image tumbler-1">
+                                <div class="pill-2 badge primary sale w-condition-invisible">
+                                    New
+                                </div>
+                                <div class="description">
+                                    <p>
+                                        {{recipe.description}}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="shop-details-wrapper">
+                                <div class="shop-details-left">
+                                    <div class="shop-item-name">{{recipe.name}}</div>
+                                    <div class="price-wrapper">
+                                        <div class="shop-item-price compare w-condition-invisible w-dyn-bind-empty">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="shop-button-wrapper">
+                            <a routerLink="/recipe-detail/{{recipe._id}}" class="btn w-button">Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="shop-more">
+            <a routerLink="all-recipes" class="btn dark w-button">View All Recipes</a>
+        </div>
+    </div>
+</div>
+<div class="safe-section">
+    <div class="container">
+        <div class="safe-wrapper">
+            <h2 class="safe-heading">
+                How we help you to easily cook!
+            </h2>
+            <p class="safe-paragraph">
+                Recipe is here to help you cook delicious
+                meals with less stress and more joy. We offer recipes
+                and cooking advice for home cooks, by home cooks.
+                Helping create “kitchen wins” is what we’re all about.
+            </p>
+        </div>
+    </div>
+</div>
+<div class="shop-local-section">
+    <div class="container shop-local-container">
+        <div class="shop-local-wrapper">
+            <div class="shop-local-left"></div>
+            <div class="shop-local-right">
+                <div class="shop-local-content-wrapper">
+                    <h2 class="shop-local-heading">How we help you to easily cook!</h2>
+                    <p>
+                        Recipe is here to help you cook delicious
+                        meals with less stress and more joy. We offer recipes
+                        and cooking advice for home cooks, by home cooks.
+                        Helping create “kitchen wins” is what we’re all about.
+                    </p>
+                    <p>-------</p>
+                    <div><strong>Recipe</strong></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

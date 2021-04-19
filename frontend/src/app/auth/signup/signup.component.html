@@ -1,34 +1,46 @@
-<div class="row centered">
-    <div class="col-lg-6 col-md-8 col-sm-8 col-xs-10">
-        <div class="box">
-            <form (submit)="onSubmit(signupForm)" #signupForm="ngForm">
-                <app-alert *ngIf="alert" (close)="onCloseAlertMessage()" [alert]="alert">
-                </app-alert>
-                <div class="form-group">
-                    <label for="name">Email</label>
-                    <input type="email" name="email" ngModel class="form-control" id="email" placeholder="Email" email
-                        required #emailInput="ngModel">
-                    <span class="vaidation_error" *ngIf="emailInput.invalid && emailInput.touched">Please enter email
-                        correctly!</span>
+<div class="page-title-section">
+    <div class="container">
+        <h1 class="page-title">Signup</h1>
+    </div>
+</div>
+
+<div id="login" class="content-section">
+    <div class="container">
+        <div class="form-wrapper">
+            <div class="form-side">
+                <h2>Signup to <b>Recipe</b></h2>
+            </div>
+            <div class="form-main">
+                <div class="w-form">
+                    <form id="signup-form" (submit)="onSubmit(signupForm)" #signupForm="ngForm">
+                        <app-alert *ngIf="alert" (close)="onCloseAlertMessage()" [alert]="alert">
+                        </app-alert>
+                        <label for="name">
+                            Email
+                        </label>
+                        <input type="text" name="email" ngModel class="form-control" id="email" placeholder="Email"
+                            email required #emailInput="ngModel">
+                        <span class="vaidation_error" *ngIf="emailInput.invalid && emailInput.touched">Please enter
+                            email
+                            correctly!</span>
+                        <label for="password">Password</label>
+                        <input type="password" name="password" ngModel class="form-control" id="password"
+                            placeholder="Password" required #passwordInput="ngModel">
+                        <span class="vaidation_error" *ngIf="passwordInput.invalid && passwordInput.touched">Please
+                            enter
+                            password correctly!</span>
+                        <label for="confirm-password">Confirm Password</label>
+                        <input type="password" name="confirmPassword" ngModel class="form-control" id="confirm-password"
+                            placeholder="Confirm Password" required #confirmPasswordInput="ngModel">
+                        <span class="vaidation_error"
+                            *ngIf="confirmPasswordInput.invalid && confirmPasswordInput.touched">Please enter your
+                            password again
+                            correctly!</span>
+
+                        <button [disabled]="signupForm.invalid" type="submit" class="btn w-button">Signup</button>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" name="password" ngModel class="form-control" id="password"
-                        placeholder="Password" required #passwordInput="ngModel">
-                    <span class="vaidation_error" *ngIf="passwordInput.invalid && passwordInput.touched">Please enter
-                        password correctly!</span>
-                </div>
-                <div class="form-group">
-                    <label for="confirm-password">Confirm Password</label>
-                    <input type="password" name="confirmPassword" ngModel class="form-control" id="confirm-password"
-                        placeholder="Confirm Password" required #confirmPasswordInput="ngModel">
-                    <span class="vaidation_error"
-                        *ngIf="confirmPasswordInput.invalid && confirmPasswordInput.touched">Please enter your
-                        password again
-                        correctly!</span>
-                </div>
-                <button [disabled]="!signupForm.valid" type="submit" class="btn btn-success">Signup</button>
-            </form>
+            </div>
         </div>
     </div>
 </div>

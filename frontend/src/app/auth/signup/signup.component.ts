@@ -15,7 +15,7 @@ import { AuthService } from '../auth.service';
 export class SignupComponent implements OnInit {
 
   constructor(private authService: AuthService, private router: Router, private titleService: Title) {
-    this.titleService.setTitle("Recipe | Signup");
+    // this.titleService.setTitle("Recipe | Signup");
   }
 
   ngOnInit(): void {

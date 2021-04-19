@@ -1,0 +1,29 @@
+<div *ngIf="recipe" class="page-title-section">
+    <div class="container">
+        <h1 class="page-title">{{recipe.name}}</h1>
+    </div>
+</div>
+<div *ngIf="recipe" class="content-section">
+    <div class="container">
+        <div class="shopping-page-wrapper">
+            <div class="shopping-page-left">
+                <div style="background-image:url({{recipe.imagePath}})" class="shopping-page-image">
+                </div>
+            </div>
+            <div class="shipping-page-right">
+                <h2 class="page-product-headin">{{recipe.name}}</h2>
+                <div class="w-richtext">
+                    <h2>What’s this recipe about?</h2>
+                    <p>
+                        {{recipe.description}}
+                    </p>
+                    <ul *ngFor="let ingredient of recipe.ingredients">
+                        <li>
+                            {{ingredient.name}} ({{ingredient.amount}})
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

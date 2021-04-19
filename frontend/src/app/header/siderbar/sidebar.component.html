@@ -1,15 +1,18 @@
-<div *ngIf="showSidebar" id="sidebar_backdrop" (click)="show()"></div>
-<div id="sidebar" [ngClass]="{open: showSidebar===true}">
-    <ul class="nav nav-sidebar">
-        <li (click)="show()" class="navlink" *ngIf="userIsAuthenticated" routerLinkActive="active"><a
-                routerLink="/recipes">Recipes</a></li>
-        <li (click)="show()" class="navlink" *ngIf="userIsAuthenticated" routerLinkActive="active"><a
-                routerLink="/shopping-list">Shopping List</a></li>
-        <li (click)="show()" class="navlink" *ngIf="!userIsAuthenticated" routerLinkActive="active"><a
-                routerLink="/login">Login</a></li>
-        <li (click)="show()" class="navlink" *ngIf="!userIsAuthenticated" routerLinkActive="active"><a
-                routerLink="/signup">Register</a></li>
-        <li class="navlink" *ngIf="userIsAuthenticated" routerLinkActive="active"><a
-                style="cursor: pointer;" (click)="onLogout()">Logout</a></li>
-    </ul>
+<div id="sidebar" [ngClass]="{open: showSidebar===true}" class="nav-menu-mobile" id="nav-menu-mobile-screen">
+        <nav role="navigation" class="nav-menu">
+                <a routerLinkActive="active" routerLink="/" (click)="show()" [routerLinkActiveOptions]="{exact:true}"
+                        class="nav-link w-nav-link">Home</a>
+                <a routerLinkActive="active" routerLink="/all-recipes" (click)="show()"
+                        class="nav-link w-nav-link">Recipes</a>
+                <a *ngIf="userIsAuthenticated" routerLinkActive="active" routerLink="/recipes" (click)="show()"
+                        class="nav-link w-nav-link">My Recipes</a>
+                <a *ngIf="userIsAuthenticated" routerLinkActive="active" routerLink="/shopping-list" (click)="show()"
+                        class="nav-link w-nav-link">My Shopping List</a>
+                <a *ngIf="userIsAuthenticated" routerLinkActive="active" (click)="onLogout()" (click)="show()"
+                        class="nav-link w-nav-link">Logout</a>
+                <a *ngIf="!userIsAuthenticated" routerLinkActive="active" routerLink="/login" (click)="show()"
+                        class="nav-link w-nav-link">Login</a>
+                <a *ngIf="!userIsAuthenticated" routerLinkActive="active" routerLink="/signup" (click)="show()"
+                        class="nav-link w-nav-link">Register</a>
+        </nav>
 </div>

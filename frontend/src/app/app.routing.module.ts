@@ -11,18 +11,23 @@ import { CanDeactivateGuard } from "./shopping-list/can-deactivate-guard.service
 import { LoginComponent } from "./auth/login/login.component";
 import { SignupComponent } from "./auth/signup/signup.component";
 import { AuthGuard } from "./auth/auth.guard";
+import { HomeComponent } from "./home/home.component";
+import { AllRecipesComponent } from "./all-recipes/all-recipes.component";
+import { RecipeViewComponent } from "./recipe-view/recipe-view.component";
 
 const appRoutes: Routes = [
-    { path: "", redirectTo: "/recipes", pathMatch: "full" , canActivate: [AuthGuard] },
+    { path: "", component: HomeComponent, pathMatch: "full" },
+    { path: "all-recipes", component: AllRecipesComponent },
+    { path: "recipe-detail/:id", component: RecipeViewComponent },
     {
-        path: "recipes", component: RecipesComponent, canActivate: [AuthGuard] , children: [
+        path: "recipes", component: RecipesComponent, canActivate: [AuthGuard], children: [
             { path: '', component: RecipeStartComponent },
             { path: 'new', component: RecipeEditComponent },
             { path: ':id', component: RecipeDetailComponent, resolve: { recipeResolver: RecipeGetResolverService } },
             { path: ':id/edit', component: RecipeEditComponent, resolve: { recipeResolver: RecipeGetResolverService } },
         ]
     },
-    { path: "shopping-list", component: ShoppingListComponent, canActivate: [AuthGuard] , canDeactivate: [CanDeactivateGuard] },
+    { path: "shopping-list", component: ShoppingListComponent, canActivate: [AuthGuard], canDeactivate: [CanDeactivateGuard] },
     { path: "login", component: LoginComponent },
     { path: "signup", component: SignupComponent }
 ];

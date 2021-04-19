@@ -1,10 +1,7 @@
+<!-- <router-outlet></router-outlet> -->
+<app-spinner></app-spinner>
 <app-header></app-header>
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      <!-- <app-recipes *ngIf="navigationSelected === 'recipe' "></app-recipes>
-      <app-shopping-list *ngIf="navigationSelected === 'shoppingList' "></app-shopping-list> -->
-      <router-outlet></router-outlet>
-    </div>
-  </div>
+<div id="page" class="routerContainer">
+    <router-outlet #appOutlet="outlet"></router-outlet>
 </div>
+<app-footer></app-footer>
