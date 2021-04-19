@@ -1,4 +1,4 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Recipe } from '../recipes/recipe.model';
@@ -26,19 +26,24 @@ export class AllRecipesComponent implements OnInit {
   lastEntity: Recipe;         //last entity
   finished: boolean = false   //is last entity?
 
+  pageIsLoading: boolean = false;
+
   ngOnInit(): void {
     this.getAllRecipes();
   }
 
   getAllRecipes() {
+    this.pageIsLoading = true;
     this.recipeService.getAllRecipes(this.batch).subscribe(result => {
       const recipes = (result as any).recipes as Recipe[];
       this.recipes = recipes;
       this.lastEntity = recipes[recipes.length - 1];
+      this.pageIsLoading = false;
     })
   }
 
   loadOnScroll() {
+    if (this.pageIsLoading) return;
     if (this.finished) return;
     this.spinner.show();
     const skip = this.recipes && this.recipes.length;
@@ -54,7 +59,6 @@ export class AllRecipesComponent implements OnInit {
         // this.recipeService.setRecipes(this.recipes);
       } else
         this.finished = true;
-
     })
   }
 
