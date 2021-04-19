@@ -11,7 +11,7 @@ const cloudinaryUtility = require('../util/cloudinaryUtility');
 
 const router = express.Router();
 
-const upload = multer()
+const upload = multer();
 
 router.post('/create-recipe', checkAuthMiddleWare, upload.single('image'), recipeValidator(), (req, res, next) => {
     const errors = validationResult(req).array().map(err => err.msg) || [];
@@ -107,11 +107,18 @@ router.delete('/delete-recipe', checkAuthMiddleWare, (req, res, next) => {
 })
 
 router.get('/get-recipes', checkAuthMiddleWare, (req, res, next) => {
-    Recipe.find({ creator: req.userData.userId }, (err, docs) => {
-        res.json({
-            recipes: docs
+    const count = +req.query.count;
+    const skip = req.query.skip | 0;
+
+    Recipe.find({ creator: req.userData.userId })
+        .skip(skip)
+        .sort({ 'createdAt': -1 })
+        .limit(count)
+        .exec((err, docs) => {
+            res.json({
+                recipes: docs
+            });
         });
-    });
 });
 
 router.get('/get-recipe', checkAuthMiddleWare, (req, res, next) => {
@@ -125,6 +132,42 @@ router.get('/get-recipe', checkAuthMiddleWare, (req, res, next) => {
             data: doc
         })
     })
+});
+
+
+router.get('/recipe', (req, res, next) => {
+    const id = req.query['id'];
+    Recipe.findById(id, (err, doc) => {
+        if (err) res.json({ success: false, message: 'Error!' });
+        if (!doc) res.status(400).json({ success: false, message: 'This recipe is not available!' })
+        res.status(200).json({
+            success: true,
+            message: 'This recipe has been successfully fetched.',
+            data: doc
+        })
+    })
+});
+
+router.get('/new-recipes', (req, res, next) => {
+    Recipe.find().sort({ 'createdAt': -1 }).limit(3).exec((err, doc) => {
+        if (err) return res.status(400).send(err);
+        res.send(doc);
+    });
+});
+
+router.get('/all-recipes', (req, res, next) => {
+    const count = +req.query.count;
+    const skip = req.query.skip | 0;
+    
+    Recipe.find()
+    .skip(skip)
+    .sort({ 'createdAt': -1 })
+    .limit(count)
+    .exec((err, docs) => {
+        res.send({
+            recipes: docs
+        });
+    });
 });
 
 module.exports = router;

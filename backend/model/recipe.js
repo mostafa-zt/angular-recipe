@@ -7,7 +7,7 @@ const recipeSchema = new Schema({
         type: String,
         required: true,
         maxlength: 300,
-        minlength:3
+        minlength: 3
     },
     imagePath: {
         required: true,
@@ -37,6 +37,6 @@ const recipeSchema = new Schema({
         required: true,
         ref: "User"
     }
-})
+},{ timestamps: true })
 
 module.exports = mongoose.model('Recipe', recipeSchema);
